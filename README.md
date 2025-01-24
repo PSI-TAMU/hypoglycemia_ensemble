@@ -9,7 +9,19 @@ This paper has been accepted for publication in the *Journal of Diabetes Science
 ## Overview
 TODO
 
+## Table of Contents
+- [Quick Start](#-quick-start)
+  - [Installation](#1-installation)
+  - [Download Data](#2-download-data)
+  - [Training (optional)](#3-training-optional)
+  - [Evaluation](#4-evaluation)
+- [Results](#-results)
+- [Citation](#-citation)
+
 ## Quick Start
+TODO
+
+## Results
 TODO
 
 ## Citation
