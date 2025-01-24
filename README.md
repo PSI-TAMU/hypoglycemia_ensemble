@@ -4,9 +4,13 @@
 
 [[paper]()] [[pre-trained weights]()]
 
+This paper has been accepted for publication in the *Journal of Diabetes Science and Technology*.
 
 ## Overview
 TODO
 
 ## Quick Start
+TODO
+
+## Citation
 TODO
