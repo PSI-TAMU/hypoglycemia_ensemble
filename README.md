@@ -10,15 +10,27 @@ This paper has been accepted for publication in the *Journal of Diabetes Science
 TODO
 
 ## Table of Contents
-- [Quick Start](#-quick-start)
+- [Quick Start](#quick-start)
   - [Installation](#1-installation)
   - [Download Data](#2-download-data)
   - [Training (optional)](#3-training-optional)
   - [Evaluation](#4-evaluation)
-- [Results](#-results)
-- [Citation](#-citation)
+- [Results](#results)
+- [Citation](#citation)
 
 ## Quick Start
+TODO
+
+### 1. Installation
+TODO
+
+### 2. Download Data
+TODO
+
+### 3. Training (optional) 
+TODO
+
+### 4. Evaluation
 TODO
 
 ## Results
