@@ -42,7 +42,8 @@ We provided two jupyter notebooks for demonstrating the evaluation result:
 <b>Note that we have provided the pre-trained weights for each model (you can download them from [here]())</b>. Put the checkpoints folder under the root directory. 
 
 ## Results
-TODO
+Stratified Cross-CGM Splits: [here]()
+Cross-Date Splits: [here](https://docs.google.com/spreadsheets/d/16pEXRMT-nx6DDHOOCN3IEF9Q1bRfsCNs2j3EcfTz7XA/edit?gid=266368036#gid=266368036)
 
 ## Citation
 TODO
