@@ -95,3 +95,30 @@ class ECG_CNN(nn.Module):
             return  nn.BCELoss(weight=pos_weight)(x, gt)
         else:
             return  nn.BCELoss()(x, gt)
+        
+class CGMLevelVoting(nn.Module):
+    def __init__(self, hidden_size=256):
+        super(CGMLevelVoting, self).__init__()
+        
+        self.layers = nn.Sequential(
+            # InceptionTimePlus(1, hidden_size),
+            nn.Linear(100, hidden_size),
+            nn.BatchNorm1d(hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, 1),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        # x = x.unsqueeze(1)
+        return self.layers(x).squeeze()
+
+    def loss(self, x, gt, normal_hypo_ratio, in_metadata=None, train_val_ratio=None, pos_weight=None):
+        if pos_weight is None:
+            pos_weight = torch.where(gt > 0.5, torch.tensor(normal_hypo_ratio), torch.tensor(1.0))
+
+        if train_val_ratio is not None and in_metadata is not None:
+            pos_weight_train_val = torch.where(in_metadata > 0.5, torch.tensor(1), torch.tensor(train_val_ratio))
+            pos_weight = pos_weight * pos_weight_train_val  
+            
+        return  nn.BCELoss(weight=pos_weight)(x, gt)

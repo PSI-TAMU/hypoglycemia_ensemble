@@ -5,6 +5,36 @@ from torch.utils.data import Sampler
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data import Sampler
 
+class CGMDataset(Dataset):
+    def __init__(self, df, metadata, verbose=True):
+        self.data = df[df['CGM_idx'].isin(metadata)].reset_index(drop=True)
+        self.CGM_idx = self.data['CGM_idx'].unique()
+
+        self.hypo_threshold = 70
+        df_glucose = self.data.drop_duplicates(subset='CGM_idx', keep='first')
+        self.num_cgm_hypo = len(df_glucose[df_glucose['glucose'] < self.hypo_threshold])
+        self.num_cgm_normal = len(df_glucose[df_glucose['glucose'] >= self.hypo_threshold])
+        self.cgm_normal_hypo_ratio = self.num_cgm_normal/self.num_cgm_hypo
+        if verbose:
+            print("Dataset info:")
+            print(" - CGM data: {} normal, {} hypo, ratio {:.2f}".format(self.num_cgm_normal, self.num_cgm_hypo, self.cgm_normal_hypo_ratio))
+
+    def stratified_sampling(self, batch_size):
+        pass
+
+    def __getitem__(self, idx):
+        row_data = self.data[self.data['CGM_idx'] == self.CGM_idx[idx]]
+        row_data.sort_values(by='Timestamp').reset_index(drop=True)
+        ecg_data = row_data["EcgWaveform"].values
+        ecg_data = np.stack(ecg_data, axis=0)
+        glucose = row_data["glucose"].values[0]
+        hypo_label = 1 if glucose < 70 else 0
+        cgm_idx = self.CGM_idx[idx]
+        return ecg_data, hypo_label, glucose, cgm_idx
+
+    def __len__(self):
+        return len(self.CGM_idx)
+
 class ECGDataset(Dataset):
     def __init__(self, df, metadata, verbose=True):
         self.data = df[df['CGM_idx'].isin(metadata)].reset_index(drop=True)
